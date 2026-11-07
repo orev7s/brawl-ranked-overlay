@@ -246,20 +246,32 @@
   box-shadow: 0 3px 0 rgba(0, 0, 0, 0.5);
 }
 
-.record-split { display: flex; width: 100%; border: 2px solid var(--ink); border-radius: 9px; overflow: hidden; }
+/* One clean frame for the split: the dark background shows through a 2px gap,
+   so neither half spends width on a border and both stay exactly 50/50. */
+.record-split {
+  display: flex;
+  gap: 2px;
+  width: 100%;
+  background: var(--ink);
+  border-radius: 9px;
+  overflow: hidden;
+}
 .record-w, .record-l {
-  flex: 1;
+  flex: 1 1 0;
+  min-width: 0;
   padding: 7px 0;
   text-align: center;
   font-family: 'Lilita One', cursive;
   font-size: 30px;
   line-height: 1;
   color: #fff;
+  white-space: nowrap;
   text-shadow: 2px 2px 0 var(--ink), -2px 2px 0 var(--ink), 0 4px 0 var(--ink);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.16), inset 0 -8px 16px rgba(0, 0, 0, 0.35);
 }
-.record-w { background: linear-gradient(180deg, #5bf07e, #12a63f); border-right: 2px solid var(--ink); }
+.record-w { background: linear-gradient(180deg, #5bf07e, #12a63f); }
 .record-l { background: linear-gradient(180deg, #ff6b78, #c1142c); }
-.record-w em, .record-l em { font-family: 'Nunito', sans-serif; font-style: normal; font-weight: 900; font-size: 13px; opacity: 0.85; margin-left: 2px; }
+.record-w em, .record-l em { font-family: 'Nunito', sans-serif; font-style: normal; font-weight: 900; font-size: 12px; opacity: 0.85; margin-left: 1px; }
 
 .stat-streak { background: linear-gradient(180deg, #26324c, #141d31); transition: background 0.3s; }
 .stat-streak[data-kind="win"] { background: linear-gradient(180deg, #ffb43c, #d9700a); }
@@ -275,10 +287,10 @@
 .stat-session { background: linear-gradient(180deg, #26324c, #141d31); transition: background 0.3s; }
 .stat-session[data-kind="pos"] { background: linear-gradient(180deg, #5bf07e, #12a63f); }
 .stat-session[data-kind="neg"] { background: linear-gradient(180deg, #ff6b78, #c1142c); }
-.session-body { display: flex; align-items: center; gap: 6px; }
+.session-body { display: flex; width: 100%; min-width: 0; align-items: center; justify-content: center; gap: 6px; }
 .session-arrow { width: 26px; height: 26px; color: #cfe0ff; }
-.stat-session[data-kind="pos"] .session-arrow { color: #d6ffe0; transform: rotate(-16deg); }
-.stat-session[data-kind="neg"] .session-arrow { color: #ffd6da; transform: rotate(164deg); }
+.stat-session[data-kind="pos"] .session-arrow { color: #d6ffe0; transform: rotate(0deg); }
+.stat-session[data-kind="neg"] .session-arrow { color: #ffd6da; transform: rotate(180deg); }
 .stat-session[data-kind="zero"] .session-arrow { display: none; }
 .session-num { font-family: 'Lilita One', cursive; font-size: 28px; line-height: 1; color: #fff; text-shadow: 2px 2px 0 var(--ink), -2px 2px 0 var(--ink), 0 4px 0 var(--ink); }
 
@@ -369,8 +381,8 @@
 [data-layout="compact"] .stats { gap: 8px; align-items: center; }
 [data-layout="compact"] .stat { min-height: 42px; min-width: 0; padding: 8px 10px 4px; border-radius: 10px; }
 [data-layout="compact"] .stat-tab { font-size: 7.5px; padding: 1px 7px; top: -9px; border-width: 2px; letter-spacing: 0.5px; }
-[data-layout="compact"] .record-split { border-width: 2px; }
-[data-layout="compact"] .record-w, [data-layout="compact"] .record-l { font-size: 17px; padding: 3px 8px; }
+[data-layout="compact"] .record-split { min-width: 92px; }
+[data-layout="compact"] .record-w, [data-layout="compact"] .record-l { font-size: 17px; padding: 3px 5px; }
 [data-layout="compact"] .record-w em, [data-layout="compact"] .record-l em { font-size: 9px; }
 [data-layout="compact"] .streak-body { flex-direction: row; gap: 5px; }
 [data-layout="compact"] .streak-tag { display: none; }
@@ -402,10 +414,12 @@
 [data-layout="vertical"] .peak-pill { margin: 4px auto 0; }
 [data-layout="vertical"] .stats { width: 100%; gap: 10px; align-items: stretch; }
 [data-layout="vertical"] .stat { flex: 1; min-width: 0; min-height: 86px; padding: 16px 6px 8px; }
-[data-layout="vertical"] .record-w, [data-layout="vertical"] .record-l { font-size: 24px; }
+[data-layout="vertical"] .record-w, [data-layout="vertical"] .record-l { font-size: 20px; }
 [data-layout="vertical"] .streak-num { font-size: 26px; }
 [data-layout="vertical"] .flame svg { width: 26px; height: 26px; }
-[data-layout="vertical"] .session-num { font-size: 24px; }
+[data-layout="vertical"] .session-body { gap: 5px; }
+[data-layout="vertical"] .session-arrow { width: 22px; height: 22px; }
+[data-layout="vertical"] .session-num { font-size: 22px; }
 [data-layout="vertical"] .form-row { justify-content: center; margin-top: 2px; }
 [data-layout="vertical"] .ranked-ribbon { right: 50%; transform: translateX(50%) rotate(-3deg) skewX(-12deg); }
 
@@ -490,7 +504,7 @@
 @keyframes shake { 0%, 100% { transform: translateX(0) rotate(0); } 20% { transform: translateX(-9px) rotate(-0.6deg); } 40% { transform: translateX(8px) rotate(0.5deg); } 60% { transform: translateX(-5px) rotate(-0.3deg); } 80% { transform: translateX(3px); } }
 @keyframes panelPulse { 0% { transform: scale(1); } 40% { transform: scale(1.012); } 100% { transform: scale(1); } }
 
-/* Session arrow keeps its tilt while disabled or not; only the bob is motion. */
+/* Session arrow keeps its direction (up for gains, down for losses); only the bob is motion. */
 [data-motion="off"] * { animation: none !important; transition: none !important; }
 
 @media (prefers-reduced-motion: reduce) {
