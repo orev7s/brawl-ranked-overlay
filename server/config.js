@@ -40,17 +40,24 @@ const env = { ...fileEnv, ...process.env };
 const port = Number(env.PORT || 8786);
 const pollMs = Math.max(15000, Number(env.POLL_MS || 20000));
 
+// DATA_DIR lets a second instance (for screenshots, staging, and so on) use its
+// own session file without touching the live one.
+const dataDir = env.DATA_DIR ? path.resolve(env.DATA_DIR) : path.join(ROOT, 'data');
+
 export const config = {
   root: ROOT,
   publicDir: path.join(ROOT, 'public'),
-  dataDir: path.join(ROOT, 'data'),
-  sessionFile: path.join(ROOT, 'data', 'session.json'),
+  dataDir,
+  sessionFile: path.join(dataDir, 'session.json'),
   token: (env.BRAWL_API_TOKEN || '').trim(),
   playerTag: normalizeTag(env.PLAYER_TAG || ''),
   port: Number.isFinite(port) ? port : 8786,
   pollMs: Number.isFinite(pollMs) ? pollMs : 20000,
   controlToken: (env.CONTROL_TOKEN || '').trim(),
   demo: env.DEMO === '1' || env.DEMO === 'true',
+  demoFreeze: env.DEMO_FREEZE === '1' || env.DEMO_FREEZE === 'true',
+  demoName: (env.DEMO_NAME || '').trim(),
+  demoElo: Number.isFinite(Number(env.DEMO_ELO)) && env.DEMO_ELO !== '' ? Number(env.DEMO_ELO) : null,
   credit: (env.OVERLAY_CREDIT || '').trim(),
   apiBase: 'https://api.brawlstars.com/v1',
 };

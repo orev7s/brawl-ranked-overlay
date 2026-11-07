@@ -5,12 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Brawl Ranked Overlay</title>
 <link rel="preload" href="/assets/LilitaOne.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/css/base.css?v=2">
-<link rel="stylesheet" href="/css/overlay.css?v=2">
+<link rel="stylesheet" href="/css/base.css?v=3">
+<link rel="stylesheet" href="/css/overlay.css?v=3">
 </head>
 <body class="overlay-body">
 <div id="stage" class="stage" data-align="top-left">
-  <div class="widget" id="widget" data-theme="midnight" data-motion="normal">
+  <div class="widget" id="widget"
+       data-layout="horizontal" data-theme="brawl-default" data-motion="normal"
+       data-icon="1" data-name="1" data-rank="1" data-points="1"
+       data-record="1" data-streak="1" data-change="1" data-peak="1" data-form="1">
 
     <div class="panel">
       <span class="screw s-tl"></span>
@@ -18,64 +21,66 @@
       <span class="screw s-bl"></span>
       <span class="screw s-br"></span>
       <span class="panel-stripes" aria-hidden="true"></span>
+      <div class="ranked-ribbon" data-block="ribbon"><span class="dot"></span>RANKED</div>
 
-      <div class="badge-cell">
-        <div class="badge-rays" aria-hidden="true"></div>
-        <div class="badge-ring" aria-hidden="true"></div>
-        <img class="rank-icon" id="rankIcon" alt="" src="/ranks/Mythic.png">
-      </div>
-
-      <div class="identity">
-        <span class="nameplate"><span class="nameplate-clip"><span id="playerName" class="name">player</span></span></span>
-        <h1 class="rank-title" id="rankTitle"><span id="rankTier">MYTHIC</span><span id="rankDiv" class="rank-div">I</span></h1>
-        <div class="elo-row">
-          <span class="elo-coin" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 2.6l2.8 5.9 6.4.9-4.6 4.5 1.1 6.4L12 17.3 6.3 20.3l1.1-6.4L2.8 9.4l6.4-.9z" fill="#ffd23f" stroke="#05070f" stroke-width="2.2" stroke-linejoin="round"/></svg>
-          </span>
-          <span class="elo" id="elo">0</span>
-          <span class="change-pop" id="changePop" aria-hidden="true"></span>
-        </div>
-        <div class="peak-pill" id="peakPill">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5l7 9H5z" fill="currentColor"/></svg>
-          <span id="peakText">PEAK —</span>
-        </div>
-      </div>
-
-      <div class="stats">
-        <div class="stat stat-record">
-          <span class="stat-tab">RECORD</span>
-          <div class="record-split">
-            <span class="record-w" id="recW">0<em>W</em></span>
-            <span class="record-l" id="recL">0<em>L</em></span>
-          </div>
+      <div class="row-main">
+        <div class="badge-cell" data-block="icon">
+          <div class="badge-rays" aria-hidden="true"></div>
+          <div class="badge-ring" aria-hidden="true"></div>
+          <img class="rank-icon" id="rankIcon" alt="" src="/ranks/Mythic.png">
         </div>
 
-        <div class="stat stat-streak" id="streakCard">
-          <span class="stat-tab">STREAK</span>
-          <div class="streak-body">
-            <span class="flame" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M13.4 2.2c.5 3-1.1 4.2-2.6 5.8-1.4 1.5-2.8 3.1-2.8 5.6 0 2.9 2.2 5.2 5.1 5.2s5.1-2.2 5.1-5.2c0-1.9-.8-3.2-1.7-4.4-.5 1-1.2 1.6-2 2 .5-3.3-.3-6.4-2.1-9z" fill="currentColor" stroke="#05070f" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div class="identity">
+          <span class="nameplate" data-block="name"><span class="nameplate-clip"><span id="playerName" class="name">player</span></span></span>
+          <h1 class="rank-title" data-block="rank"><span id="rankTier">MYTHIC</span><span id="rankDiv" class="rank-div">I</span></h1>
+          <div class="elo-row" data-block="points">
+            <span class="elo-coin" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2.6l2.8 5.9 6.4.9-4.6 4.5 1.1 6.4L12 17.3 6.3 20.3l1.1-6.4L2.8 9.4l6.4-.9z" fill="#ffd23f" stroke="#05070f" stroke-width="2.2" stroke-linejoin="round"/></svg>
             </span>
-            <span class="streak-num" id="streakNum">0</span>
-            <span class="streak-tag" id="streakTag">STREAK</span>
+            <span class="elo" id="elo">0</span>
+            <span class="change-pop" id="changePop" aria-hidden="true"></span>
+          </div>
+          <div class="peak-pill" data-block="peak" id="peakPill">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5l7 9H5z" fill="currentColor"/></svg>
+            <span id="peakText">PEAK —</span>
           </div>
         </div>
 
-        <div class="stat stat-session" id="sessionCard">
-          <span class="stat-tab">SESSION</span>
-          <div class="session-body">
-            <svg class="session-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l6 8h-4v8h-4v-8H6z" fill="currentColor" stroke="#05070f" stroke-width="1.6" stroke-linejoin="round"/></svg>
-            <span class="session-num" id="sessionChange">±0</span>
+        <div class="stats">
+          <div class="stat stat-record" data-block="record">
+            <span class="stat-tab">RECORD</span>
+            <div class="record-split">
+              <span class="record-w" id="recW">0<em>W</em></span>
+              <span class="record-l" id="recL">0<em>L</em></span>
+            </div>
+          </div>
+
+          <div class="stat stat-streak" id="streakCard" data-block="streak">
+            <span class="stat-tab">STREAK</span>
+            <div class="streak-body">
+              <span class="flame" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M13.4 2.2c.5 3-1.1 4.2-2.6 5.8-1.4 1.5-2.8 3.1-2.8 5.6 0 2.9 2.2 5.2 5.1 5.2s5.1-2.2 5.1-5.2c0-1.9-.8-3.2-1.7-4.4-.5 1-1.2 1.6-2 2 .5-3.3-.3-6.4-2.1-9z" fill="currentColor" stroke="#05070f" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="streak-num" id="streakNum">0</span>
+              <span class="streak-tag" id="streakTag">STREAK</span>
+            </div>
+          </div>
+
+          <div class="stat stat-session" id="sessionCard" data-block="change">
+            <span class="stat-tab">SESSION</span>
+            <div class="session-body">
+              <svg class="session-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l6 8h-4v8h-4v-8H6z" fill="currentColor" stroke="#05070f" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              <span class="session-num" id="sessionChange">±0</span>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="form-row">
+      <div class="form-row" data-block="form">
         <span class="form-label">FORM</span>
         <span class="form-dots" id="formDots"></span>
       </div>
 
-      <div class="ranked-ribbon"><span class="dot"></span>RANKED</div>
       <div class="credit" id="credit" hidden></div>
     </div>
 
@@ -96,6 +101,6 @@
   </div>
 </div>
 
-<script type="module" src="/js/overlay.js?v=2"></script>
+<script type="module" src="/js/overlay.js?v=3"></script>
 </body>
 </html>

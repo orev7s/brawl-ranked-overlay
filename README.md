@@ -11,6 +11,8 @@
 
 <img src="docs/hero.png" alt="The overlay showing a player's rank, Elo, peak, record, streak and recent form" width="100%">
 
+<sub>Screenshots use a demo account (FUT AngelBoy, Pro) so no real player is shown.</sub>
+
 </div>
 
 ## What it does
@@ -28,11 +30,33 @@ It watches your Brawl Stars Ranked profile and draws a clean little scoreboard y
 <img src="docs/rankup.png" alt="Rank up banner" width="49%">
 </div>
 
-There is also a control panel to start a session, reset it, and fire test animations before you go live.
+There is also a control panel to start a session, reset it, build your overlay link, and fire test animations before you go live.
 
 <div align="center">
 <img src="docs/control.png" alt="Control panel" width="80%">
 </div>
+
+### Layouts
+
+Three shapes, same board. Horizontal is the default.
+
+<div align="center">
+<img src="docs/layout-compact.png" alt="Compact layout" width="74%">
+<span>&nbsp;&nbsp;</span>
+<img src="docs/layout-vertical.png" alt="Vertical layout" width="23%">
+</div>
+
+### Themes
+
+Four themes. **Brawl default** takes its colours from your rank, so a Mythic board is purple, Diamond is blue, Masters is green and Pro is gold on slate.
+
+<div align="center">
+<img src="docs/theme-midnight.png" alt="Midnight theme" width="100%">
+<img src="docs/theme-gold-rush.png" alt="Gold rush theme" width="100%">
+<img src="docs/theme-frost.png" alt="Frost theme" width="100%">
+</div>
+
+You can also turn off any piece you do not want (the rank icon, the player name, the form strip, and so on). The board reflows to close the gap.
 
 ---
 
@@ -82,19 +106,31 @@ You also need your **player tag**. Open Brawl Stars, tap your profile, and copy 
 
 ---
 
-## Customising
+## Make it yours
 
-The overlay link takes a few options. Stick them on the end with `?`.
+The overlay link takes options. Add them after `?` and join more than one with `&`. The **Overlay builder** in the control panel does this for you and prints a ready-to-paste link.
 
-Example: `http://localhost:8786/overlay?align=top-right&scale=0.9`
+Example: `http://localhost:8786/overlay?layout=vertical&theme=frost&renderScale=120`
 
 | Option | Default | What it does |
 | --- | --- | --- |
-| `scale` | `1` | Make it bigger or smaller (`0.3` to `3`) |
+| `layout` | `horizontal` | `horizontal`, `compact` or `vertical` |
+| `theme` | `brawl-default` | `brawl-default`, `midnight`, `gold-rush` or `frost` |
+| `motion` | `normal` | `off` to stop every animation, `normal` to keep them |
+| `renderScale` | `100` | `30` to `150`, in percent |
 | `align` | `top-left` | `top-left`, `top-right`, `bottom-left`, `bottom-right` |
 | `x` / `y` | `48` / `44` | Distance from the corner, in pixels |
-| `motion` | `normal` | `off`, `low` or `normal` for animations |
 | `debug` | hidden | `1` shows a small status pill |
+
+Every piece of the board can be switched off by setting it to `0`. The rest reflows, so nothing is left empty.
+
+| Block | Option | Block | Option |
+| --- | --- | --- | --- |
+| Rank icon | `icon=0` | Session change | `change=0` |
+| Player name | `name=0` | Peak rank | `peak=0` |
+| Rank name | `rank=0` | Recent form strip | `form=0` |
+| Ranked points | `points=0` | Session W/L | `record=0` |
+| Streak | `streak=0` | | |
 
 ### Control panel
 
@@ -138,10 +174,12 @@ server/
 public/
   overlay.html / control.html
   css/  base.css, overlay.css, control.css
-  js/   overlay.js, render.js, celebrations.js, api.js, format.js, control.js
+  js/   overlay.js, render.js, themes.js, celebrations.js, api.js, format.js, control.js
   ranks/  tier emblems
   assets/ fonts
 ```
+
+**Themes and layouts:** `public/js/themes.js` holds the fixed palettes. `brawl-default` is special: it reads `rank.color / edge / deep` from the current rank, so its accent and ribbon change with the emblem. Layouts are plain CSS on `[data-layout]` in `public/css/overlay.css`. Display blocks are `[data-block]` elements hidden by `[data-*="0"]` rules.
 
 **Environment variables** (`.env`):
 
@@ -153,6 +191,9 @@ public/
 | `POLL_MS` | Poll interval in ms, minimum `15000`. |
 | `CONTROL_TOKEN` | Optional. Locks the control panel and action endpoints behind `?key=`. |
 | `DEMO` | `1` starts in demo mode, no API calls. |
+| `DEMO_NAME` / `DEMO_ELO` | Optional. The name and Elo a demo board starts from. |
+| `DEMO_FREEZE` | `1` keeps a demo board still (no auto-played matches), handy for screenshots. |
+| `DATA_DIR` | Optional. Where `session.json` lives, so a second instance can run beside the live one. |
 | `OVERLAY_CREDIT` | Optional small label in the corner. |
 
 **How a result is decided:** Ranked 3v3 uses `battle.result`. Ranked showdown has no result field, so a win is a positive `trophyChange`, falling back to a top half placement. The Elo delta shown on a banner is the change between the previous poll and the current one.

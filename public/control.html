@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Brawl Ranked Overlay · Control</title>
-<link rel="stylesheet" href="/css/base.css?v=2">
-<link rel="stylesheet" href="/css/control.css?v=2">
+<link rel="stylesheet" href="/css/base.css?v=3">
+<link rel="stylesheet" href="/css/control.css?v=3">
 </head>
 <body class="cbody">
 <main class="shell">
@@ -68,16 +68,54 @@
       </div>
     </article>
 
-    <article class="card preview-card">
-      <div class="card-head"><h2>Overlay preview</h2><button class="btn tiny" id="copyOverlay">Copy OBS link</button></div>
-      <div class="preview-frame">
-        <iframe id="preview" src="/overlay?debug=1" title="Overlay preview"></iframe>
+    <article class="card builder-card">
+      <div class="card-head"><h2>Overlay builder</h2><button class="btn tiny" id="copyOverlay">Copy OBS link</button></div>
+      <div class="builder">
+        <div class="builder-controls">
+          <label class="field">
+            <span>Layout</span>
+            <select id="optLayout">
+              <option value="horizontal">Horizontal</option>
+              <option value="compact">Compact</option>
+              <option value="vertical">Vertical</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Theme</span>
+            <select id="optTheme">
+              <option value="brawl-default">Brawl default (rank colour)</option>
+              <option value="midnight">Midnight</option>
+              <option value="gold-rush">Gold rush</option>
+              <option value="frost">Frost</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Animation</span>
+            <select id="optMotion">
+              <option value="normal">On</option>
+              <option value="off">Off</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Render scale <b id="optScaleVal">100%</b></span>
+            <input type="range" id="optScale" min="30" max="150" step="5" value="100">
+          </label>
+          <div class="field">
+            <span>Show</span>
+            <div class="check-grid" id="optChecks"></div>
+          </div>
+        </div>
+        <div class="builder-preview">
+          <div class="preview-frame">
+            <iframe id="preview" src="/overlay?debug=1" title="Overlay preview"></iframe>
+          </div>
+          <div class="urlbox"><code id="overlayUrl">/overlay</code></div>
+        </div>
       </div>
-      <div class="urlbox"><code id="overlayUrl">/overlay</code></div>
       <p class="hint">Add this as a Browser Source in OBS at 1920×1080. Keep the background transparent.</p>
     </article>
   </section>
 </main>
-<script type="module" src="/js/control.js?v=2"></script>
+<script type="module" src="/js/control.js?v=3"></script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 import { formatNumber, signed, rankLabel } from './format.js';
+import { applyTheme } from './themes.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -36,13 +37,6 @@ const ICON = {
 let last = { elo: null, form: [], rendered: false };
 let eloAnim = 0;
 let popTimer = 0;
-
-function setAccent(rank) {
-  if (!rank) return;
-  el.widget.style.setProperty('--accent', rank.color);
-  el.widget.style.setProperty('--accent-edge', rank.edge);
-  el.widget.style.setProperty('--accent-deep', rank.deep);
-}
 
 function animateElo(from, to) {
   cancelAnimationFrame(eloAnim);
@@ -129,7 +123,7 @@ export function render(state, options = {}) {
   el.panel.style.visibility = 'visible';
 
   const rank = state.rank || {};
-  setAccent(rank);
+  applyTheme(el.widget, el.widget.dataset.theme, rank);
 
   el.rankIcon.src = `/ranks/${rank.icon || 'Mythic.png'}`;
   el.rankIcon.alt = `${rank.tier || ''} rank emblem`;

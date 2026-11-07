@@ -13,17 +13,19 @@ function iconUrl(profile) {
 }
 
 function demoProfile() {
-  const elo = 4848;
+  const elo = Number.isFinite(config.demoElo) ? config.demoElo : 4848;
+  const peak = Math.max(elo, 7051);
+  const season = Math.max(elo, 5110);
   return {
     tag: config.playerTag || '#2PQ0LRVGR',
-    name: 'v80q',
+    name: config.demoName || 'v80q',
     icon: { id: 28000988 },
     rankedElo: elo,
     rankedRankName: rankFromElo(elo).name,
-    highestAllTimeRankedRankName: rankFromElo(7051).name,
-    highestAllTimeRankedElo: 7051,
-    highestSeasonRankedRankName: rankFromElo(5110).name,
-    highestSeasonRankedElo: 5110,
+    highestAllTimeRankedRankName: rankFromElo(peak).name,
+    highestAllTimeRankedElo: peak,
+    highestSeasonRankedRankName: rankFromElo(season).name,
+    highestSeasonRankedElo: season,
   };
 }
 
@@ -45,8 +47,13 @@ export class Engine {
     this.fetchedAt = null;
     this.demo = demoProfile();
     this.demoState = this.makeDemoState();
-    this.demoAuto = config.demo;
+    this.demoAuto = config.demo && !config.demoFreeze;
     this.load();
+    // A frozen demo (DEMO_FREEZE=1) never polls, so prime the board once here
+    // so the overlay has a profile to render instead of showing "waiting".
+    if (config.demo && !this.profile) {
+      this.ingest({ ...this.demo }, { items: [] });
+    }
   }
 
   makeDemoState(elo) {
