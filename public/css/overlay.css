@@ -226,7 +226,7 @@
   padding: 18px 10px 10px;
   display: grid;
   place-items: center;
-  box-shadow: 0 6px 0 rgba(5, 7, 15, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.16), inset 0 -8px 16px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 6px 0 rgba(5, 7, 15, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06), inset 0 -10px 18px rgba(0, 0, 0, 0.32);
 }
 .stat-tab {
   position: absolute;
@@ -267,7 +267,7 @@
   color: #fff;
   white-space: nowrap;
   text-shadow: 2px 2px 0 var(--ink), -2px 2px 0 var(--ink), 0 4px 0 var(--ink);
-  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.16), inset 0 -8px 16px rgba(0, 0, 0, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), inset 0 -10px 18px rgba(0, 0, 0, 0.32);
 }
 .record-w { background: linear-gradient(180deg, #5bf07e, #12a63f); }
 .record-l { background: linear-gradient(180deg, #ff6b78, #c1142c); }
@@ -276,12 +276,12 @@
 .stat-streak { background: linear-gradient(180deg, #26324c, #141d31); transition: background 0.3s; }
 .stat-streak[data-kind="win"] { background: linear-gradient(180deg, #ffb43c, #d9700a); }
 .stat-streak[data-kind="loss"] { background: linear-gradient(180deg, #4aa0e0, #1c5aa0); }
-.streak-body { display: flex; flex-direction: column; align-items: center; gap: 1px; }
+.streak-body { display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .flame { color: #ffd45e; }
 .stat-streak[data-kind="loss"] .flame { color: #cdeaff; }
-.flame svg { width: 30px; height: 30px; filter: drop-shadow(0 2px 0 var(--ink)); animation: bob 1.6s ease-in-out infinite; transform-origin: 50% 80%; }
-.streak-num { font-family: 'Lilita One', cursive; font-size: 32px; line-height: 1; color: #fff; text-shadow: 2px 2px 0 var(--ink), -2px 2px 0 var(--ink), 0 4px 0 var(--ink); }
-.streak-tag { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 10px; letter-spacing: 1px; color: #fff; opacity: 0.9; }
+.flame svg { width: 26px; height: 26px; filter: drop-shadow(0 2px 0 var(--ink)); animation: bob 1.6s ease-in-out infinite; transform-origin: 50% 80%; }
+.streak-num { font-family: 'Lilita One', cursive; font-size: 30px; line-height: 1; color: #fff; text-shadow: 2px 2px 0 var(--ink), -2px 2px 0 var(--ink), 0 4px 0 var(--ink); }
+.streak-tag { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 10.5px; line-height: 1; letter-spacing: 0.9px; color: #fff; opacity: 0.9; }
 .stat-streak[data-kind="win"] .streak-tag { color: #ffe9a8; }
 
 .stat-session { background: linear-gradient(180deg, #26324c, #141d31); transition: background 0.3s; }
@@ -384,10 +384,11 @@
 [data-layout="compact"] .record-split { min-width: 92px; }
 [data-layout="compact"] .record-w, [data-layout="compact"] .record-l { font-size: 17px; padding: 3px 5px; }
 [data-layout="compact"] .record-w em, [data-layout="compact"] .record-l em { font-size: 9px; }
-[data-layout="compact"] .streak-body { flex-direction: row; gap: 5px; }
+[data-layout="compact"] .streak-body { flex-direction: row; gap: 6px; }
+[data-layout="compact"] .stat-streak { min-width: 72px; }
 [data-layout="compact"] .streak-tag { display: none; }
-[data-layout="compact"] .flame svg { width: 18px; height: 18px; }
-[data-layout="compact"] .streak-num { font-size: 20px; }
+[data-layout="compact"] .flame svg { width: 20px; height: 20px; }
+[data-layout="compact"] .streak-num { font-size: 22px; }
 [data-layout="compact"] .session-arrow { width: 17px; height: 17px; }
 [data-layout="compact"] .session-num { font-size: 18px; }
 [data-layout="compact"] .form-row { margin-top: 0; }
@@ -413,14 +414,14 @@
 [data-layout="vertical"] .elo-row { justify-content: center; }
 [data-layout="vertical"] .peak-pill { margin: 4px auto 0; }
 [data-layout="vertical"] .stats { width: 100%; gap: 10px; align-items: stretch; }
-[data-layout="vertical"] .stat { flex: 1; min-width: 0; min-height: 86px; padding: 16px 6px 8px; }
-[data-layout="vertical"] .record-w, [data-layout="vertical"] .record-l { font-size: 20px; }
-[data-layout="vertical"] .streak-num { font-size: 26px; }
+[data-layout="vertical"] .stat { flex: 1; min-width: 0; min-height: 96px; padding: 18px 6px 10px; align-content: center; }
+[data-layout="vertical"] .record-w, [data-layout="vertical"] .record-l { font-size: 22px; padding: 8px 0; }
+[data-layout="vertical"] .streak-num { font-size: 28px; }
 [data-layout="vertical"] .flame svg { width: 26px; height: 26px; }
-[data-layout="vertical"] .session-body { gap: 5px; }
-[data-layout="vertical"] .session-arrow { width: 22px; height: 22px; }
-[data-layout="vertical"] .session-num { font-size: 22px; }
-[data-layout="vertical"] .form-row { justify-content: center; margin-top: 2px; }
+[data-layout="vertical"] .session-body { width: 100%; justify-content: center; gap: 4px; }
+[data-layout="vertical"] .session-arrow { width: 24px; height: 24px; }
+[data-layout="vertical"] .session-num { font-size: 24px; }
+[data-layout="vertical"] .form-row { width: 100%; justify-content: center; margin-top: 4px; }
 [data-layout="vertical"] .ranked-ribbon { right: 50%; transform: translateX(50%) rotate(-3deg) skewX(-12deg); }
 
 /* --------------------------------------------------------- celebrations */
