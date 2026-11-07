@@ -1,0 +1,12 @@
+{
+  "name": "brawl-ranked-overlay",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Live Brawl Stars Ranked overlay for OBS (browser source).",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "DEMO=1 node server/index.js"
+  },
+  "engines": { "node": ">=20" }
+}

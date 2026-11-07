@@ -1,0 +1,24 @@
+@font-face { font-family: 'Lilita One'; src: url('/assets/LilitaOne.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'Nunito'; src: url('/assets/Nunito.woff2') format('woff2'); font-weight: 400 900; font-display: block; }
+@font-face { font-family: 'Titan One'; src: url('/assets/TitanOne.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'Luckiest Guy'; src: url('/assets/LuckiestGuy.woff2') format('woff2'); font-display: block; }
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+/* Only the OBS overlay locks the viewport; other pages scroll normally. */
+body.overlay-body {
+  background: transparent;
+  overflow: hidden;
+}
+body {
+  font-family: 'Nunito', system-ui, sans-serif;
+  color: #f4f8ff;
+}
+img { display: block; }
+svg { display: block; }
+[hidden] { display: none !important; }

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brawl Ranked Overlay · Control</title>
+<link rel="stylesheet" href="/css/base.css?v=2">
+<link rel="stylesheet" href="/css/control.css?v=2">
+</head>
+<body class="cbody">
+<main class="shell">
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">BR</span>
+      <div>
+        <h1>Brawl Ranked</h1>
+        <p>Stream overlay control</p>
+      </div>
+    </div>
+    <div class="live-pill" id="livePill"><span class="live-dot"></span><span id="liveLabel">connecting</span></div>
+  </header>
+
+  <section class="grid">
+    <article class="card live-card">
+      <div class="card-head"><h2>Live state</h2><span class="muted" id="fetchedAt">—</span></div>
+      <div class="hero">
+        <img id="cRankIcon" class="c-rank" src="/ranks/Mythic.png" alt="">
+        <div class="hero-text">
+          <span class="c-name" id="cName">—</span>
+          <span class="c-rankname" id="cRankName">—</span>
+          <span class="c-elo"><span id="cElo">0</span> <em>elo</em></span>
+        </div>
+      </div>
+      <div class="kv">
+        <div><span>Peak all-time</span><strong id="cPeak">—</strong></div>
+        <div><span>Season peak</span><strong id="cSeasonPeak">—</strong></div>
+        <div><span>Source</span><strong id="cSource">—</strong></div>
+      </div>
+      <div class="mini">
+        <div class="mini-box"><span>Record</span><strong id="cRecord">0W · 0L</strong></div>
+        <div class="mini-box"><span>Streak</span><strong id="cStreak">—</strong></div>
+        <div class="mini-box"><span>Session</span><strong id="cChange">±0</strong></div>
+      </div>
+      <div class="formline"><span>Form</span><div class="c-form" id="cForm"></div></div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><h2>Session</h2></div>
+      <p class="hint">Start a session before you queue. Wins and losses are counted from Ranked matches that appear after the start time.</p>
+      <div class="btns">
+        <button class="btn primary" data-action="start">Start session</button>
+        <button class="btn" data-action="reset">Reset</button>
+        <button class="btn ghost" data-action="end">End</button>
+        <button class="btn ghost" data-action="refresh">Refresh player</button>
+      </div>
+      <div class="sep"></div>
+      <div class="card-head"><h2>Demo / test</h2><span class="muted">no live writes</span></div>
+      <p class="hint">Fire a fake event to check the animation in OBS. Demo mode auto-plays random matches until you return to live.</p>
+      <div class="btns">
+        <button class="btn demo" data-demo="win">Win</button>
+        <button class="btn demo" data-demo="loss">Loss</button>
+        <button class="btn demo" data-demo="rankup">Rank up</button>
+        <button class="btn demo" data-demo="rankdown">Rank down</button>
+      </div>
+      <div class="btns">
+        <button class="btn primary" id="demoOn">Auto demo</button>
+        <button class="btn ghost" id="demoOff">Return to live</button>
+      </div>
+    </article>
+
+    <article class="card preview-card">
+      <div class="card-head"><h2>Overlay preview</h2><button class="btn tiny" id="copyOverlay">Copy OBS link</button></div>
+      <div class="preview-frame">
+        <iframe id="preview" src="/overlay?debug=1" title="Overlay preview"></iframe>
+      </div>
+      <div class="urlbox"><code id="overlayUrl">/overlay</code></div>
+      <p class="hint">Add this as a Browser Source in OBS at 1920×1080. Keep the background transparent.</p>
+    </article>
+  </section>
+</main>
+<script type="module" src="/js/control.js?v=2"></script>
+</body>
+</html>
